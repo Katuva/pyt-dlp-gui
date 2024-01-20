@@ -69,3 +69,6 @@ class YtDlpWrapper:
 
     async def download(self, url: str, filename: str, video_format: str = "bestvideo+bestaudio") -> None:
         await self.run(["-o", filename, f"-f {video_format}", url])
+
+    async def download_format(self, url: str, selected_format: str) -> None:
+        await self.run([f"-f {selected_format}", url])

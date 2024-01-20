@@ -118,11 +118,11 @@ class MainWindow(QMainWindow):
         )
 
     def handle_thumbnail_finished(self, reply):
-        data = reply.readAll()
-        self.thumbnail.loadFromData(data)
+        self.thumbnail.loadFromData(reply.readAll())
         self.ui.imgThumbnail.setPixmap(
             self.thumbnail.scaled(self.ui.imgThumbnail.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
         )
+
         self.ui.chkSaveThumbnail.setVisible(True)
         self.ui.lblDuration.setVisible(True)
 
@@ -134,6 +134,10 @@ class MainWindow(QMainWindow):
         else:
             self.ui.cmbVideoFormats.setEnabled(False)
             self.ui.cmbAudioFormats.setEnabled(False)
+
+            self.ui.txtOutputFilename.setText(
+                f"{self.application_path}{os.sep}{self.ytdlp.video.filename}"
+            )
 
     @asyncSlot()
     async def download_button_clicked(self):
@@ -167,6 +171,32 @@ class MainWindow(QMainWindow):
         self.ui.btnBrowse.setEnabled(False)
         self.ui.btnDownload.setEnabled(False)
 
+    @asyncSlot()
+    async def download_video_button_clicked(self):
+        if self.ui.chkQuality.isChecked():
+            await self.ytdlp.download_format(
+                self.ui.txtUrl.text(),
+                "bestvideo"
+            )
+        else:
+            await self.ytdlp.download_format(
+                self.ui.txtUrl.text(),
+                self.ui.cmbVideoFormats.currentData()
+            )
+
+    @asyncSlot()
+    async def download_audio_button_clicked(self):
+        if self.ui.chkQuality.isChecked():
+            await self.ytdlp.download_format(
+                self.ui.txtUrl.text(),
+                "bestaudio"
+            )
+        else:
+            await self.ytdlp.download_format(
+                self.ui.txtUrl.text(),
+                self.ui.cmbAudioFormats.currentData()
+            )
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -182,10 +212,6 @@ if __name__ == "__main__":
     app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyside6'))
 
     window.show()
-
-    # with open("nord.qss", "r") as f:
-    #     _style = f.read()
-    #     app.setStyleSheet(_style)
 
     with loop:
         loop.run_until_complete(app_close_event.wait())

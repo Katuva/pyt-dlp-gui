@@ -61,11 +61,60 @@ padding-right: 12px;</string>
        </widget>
       </item>
       <item row="3" column="0">
-       <layout class="QFormLayout" name="formLayout">
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Audio format:</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="1">
          <widget class="QComboBox" name="cmbVideoFormats">
           <property name="enabled">
            <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Video format:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="btnDownloadVideo">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>30</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Download Video</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">padding-top: 5px;
+padding-bottom: 5px;</string>
+          </property>
+          <property name="text">
+           <string>D</string>
           </property>
          </widget>
         </item>
@@ -76,21 +125,33 @@ padding-right: 12px;</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Video format:</string>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="btnDownloadAudio">
+          <property name="enabled">
+           <bool>true</bool>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_2">
+          <property name="maximumSize">
+           <size>
+            <width>30</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Download Audio</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">padding-top: 5px;
+padding-bottom: 5px;</string>
+          </property>
           <property name="text">
-           <string>Audio format:</string>
+           <string>D</string>
           </property>
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="4" column="0">
+       <layout class="QFormLayout" name="formLayout"/>
       </item>
       <item row="1" column="0">
        <widget class="QPlainTextEdit" name="txtVideoDescription">
@@ -102,7 +163,17 @@ padding-right: 12px;</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" rowspan="4">
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="chkQuality">
+        <property name="text">
+         <string>Automatic best quality</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" rowspan="5">
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <property name="leftMargin">
          <number>0</number>
@@ -212,16 +283,6 @@ padding-right: 6px;</string>
          </spacer>
         </item>
        </layout>
-      </item>
-      <item row="2" column="0">
-       <widget class="QCheckBox" name="chkQuality">
-        <property name="text">
-         <string>Automatic best quality</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
       </item>
      </layout>
     </item>
@@ -400,22 +461,6 @@ padding-right: 12px;</string>
    </hints>
   </connection>
   <connection>
-   <sender>cmbVideoFormats</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>video_format_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>360</x>
-     <y>322</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>401</x>
-     <y>410</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>chkQuality</sender>
    <signal>toggled(bool)</signal>
    <receiver>MainWindow</receiver>
@@ -423,11 +468,59 @@ padding-right: 12px;</string>
    <hints>
     <hint type="sourcelabel">
      <x>121</x>
-     <y>289</y>
+     <y>267</y>
     </hint>
     <hint type="destinationlabel">
      <x>162</x>
      <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmbVideoFormats</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>video_format_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>322</x>
+     <y>407</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnDownloadVideo</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>download_video_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>477</x>
+     <y>423</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnDownloadAudio</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>download_audio_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>471</x>
+     <y>337</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>471</x>
+     <y>417</y>
     </hint>
    </hints>
   </connection>
@@ -439,5 +532,7 @@ padding-right: 12px;</string>
   <slot>download_button_clicked()</slot>
   <slot>video_format_changed()</slot>
   <slot>quality_toggled()</slot>
+  <slot>download_video_button_clicked()</slot>
+  <slot>download_audio_button_clicked()</slot>
  </slots>
 </ui>

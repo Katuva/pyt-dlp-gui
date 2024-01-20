@@ -70,38 +70,69 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.txtVideoTitle, 0, 0, 1, 1)
 
-        self.formLayout = QFormLayout()
-        self.formLayout.setObjectName(u"formLayout")
+        self.gridLayout_4 = QGridLayout()
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setMaximumSize(QSize(80, 16777215))
+
+        self.gridLayout_4.addWidget(self.label_2, 1, 0, 1, 1)
+
         self.cmbVideoFormats = QComboBox(self.centralwidget)
         self.cmbVideoFormats.setObjectName(u"cmbVideoFormats")
         self.cmbVideoFormats.setEnabled(False)
 
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.cmbVideoFormats)
+        self.gridLayout_4.addWidget(self.cmbVideoFormats, 0, 1, 1, 1)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setMaximumSize(QSize(80, 16777215))
+
+        self.gridLayout_4.addWidget(self.label, 0, 0, 1, 1)
+
+        self.btnDownloadVideo = QPushButton(self.centralwidget)
+        self.btnDownloadVideo.setObjectName(u"btnDownloadVideo")
+        self.btnDownloadVideo.setEnabled(True)
+        self.btnDownloadVideo.setMaximumSize(QSize(30, 16777215))
+        self.btnDownloadVideo.setStyleSheet(u"padding-top: 5px;\n"
+"padding-bottom: 5px;")
+
+        self.gridLayout_4.addWidget(self.btnDownloadVideo, 0, 2, 1, 1)
 
         self.cmbAudioFormats = QComboBox(self.centralwidget)
         self.cmbAudioFormats.setObjectName(u"cmbAudioFormats")
         self.cmbAudioFormats.setEnabled(False)
 
-        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.cmbAudioFormats)
+        self.gridLayout_4.addWidget(self.cmbAudioFormats, 1, 1, 1, 1)
 
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
+        self.btnDownloadAudio = QPushButton(self.centralwidget)
+        self.btnDownloadAudio.setObjectName(u"btnDownloadAudio")
+        self.btnDownloadAudio.setEnabled(True)
+        self.btnDownloadAudio.setMaximumSize(QSize(30, 16777215))
+        self.btnDownloadAudio.setStyleSheet(u"padding-top: 5px;\n"
+"padding-bottom: 5px;")
 
-        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label)
-
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
-
-        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_2)
+        self.gridLayout_4.addWidget(self.btnDownloadAudio, 1, 2, 1, 1)
 
 
-        self.gridLayout_2.addLayout(self.formLayout, 3, 0, 1, 1)
+        self.gridLayout_2.addLayout(self.gridLayout_4, 3, 0, 1, 1)
+
+        self.formLayout = QFormLayout()
+        self.formLayout.setObjectName(u"formLayout")
+
+        self.gridLayout_2.addLayout(self.formLayout, 4, 0, 1, 1)
 
         self.txtVideoDescription = QPlainTextEdit(self.centralwidget)
         self.txtVideoDescription.setObjectName(u"txtVideoDescription")
         self.txtVideoDescription.setReadOnly(True)
 
         self.gridLayout_2.addWidget(self.txtVideoDescription, 1, 0, 1, 1)
+
+        self.chkQuality = QCheckBox(self.centralwidget)
+        self.chkQuality.setObjectName(u"chkQuality")
+        self.chkQuality.setChecked(True)
+
+        self.gridLayout_2.addWidget(self.chkQuality, 2, 0, 1, 1)
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -147,13 +178,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addItem(self.verticalSpacer)
 
 
-        self.gridLayout_2.addLayout(self.verticalLayout_2, 0, 1, 4, 1)
-
-        self.chkQuality = QCheckBox(self.centralwidget)
-        self.chkQuality.setObjectName(u"chkQuality")
-        self.chkQuality.setChecked(True)
-
-        self.gridLayout_2.addWidget(self.chkQuality, 2, 0, 1, 1)
+        self.gridLayout_2.addLayout(self.verticalLayout_2, 0, 1, 5, 1)
 
 
         self.verticalLayout.addLayout(self.gridLayout_2)
@@ -214,8 +239,10 @@ class Ui_MainWindow(object):
         self.actionExit.triggered.connect(MainWindow.close)
         self.btnBrowse.clicked.connect(MainWindow.browse_button_clicked)
         self.btnDownload.clicked.connect(MainWindow.download_button_clicked)
-        self.cmbVideoFormats.currentIndexChanged.connect(MainWindow.video_format_changed)
         self.chkQuality.toggled.connect(MainWindow.quality_toggled)
+        self.cmbVideoFormats.currentIndexChanged.connect(MainWindow.video_format_changed)
+        self.btnDownloadVideo.clicked.connect(MainWindow.download_video_button_clicked)
+        self.btnDownloadAudio.clicked.connect(MainWindow.download_audio_button_clicked)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -228,13 +255,21 @@ class Ui_MainWindow(object):
         self.txtUrl.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Video URL", None))
         self.btnProcess.setText(QCoreApplication.translate("MainWindow", u"Process", None))
         self.txtVideoTitle.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Video title", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Video format:", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Audio format:", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Video format:", None))
+#if QT_CONFIG(tooltip)
+        self.btnDownloadVideo.setToolTip(QCoreApplication.translate("MainWindow", u"Download Video", None))
+#endif // QT_CONFIG(tooltip)
+        self.btnDownloadVideo.setText(QCoreApplication.translate("MainWindow", u"D", None))
+#if QT_CONFIG(tooltip)
+        self.btnDownloadAudio.setToolTip(QCoreApplication.translate("MainWindow", u"Download Audio", None))
+#endif // QT_CONFIG(tooltip)
+        self.btnDownloadAudio.setText(QCoreApplication.translate("MainWindow", u"D", None))
         self.txtVideoDescription.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Video description", None))
+        self.chkQuality.setText(QCoreApplication.translate("MainWindow", u"Automatic best quality", None))
         self.imgThumbnail.setText("")
         self.lblDuration.setText("")
         self.chkSaveThumbnail.setText(QCoreApplication.translate("MainWindow", u"Save thumbnail", None))
-        self.chkQuality.setText(QCoreApplication.translate("MainWindow", u"Automatic best quality", None))
         self.btnDownload.setText(QCoreApplication.translate("MainWindow", u"Download", None))
         self.btnBrowse.setText(QCoreApplication.translate("MainWindow", u"Browse", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
