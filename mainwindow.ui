@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>yt-dlp-gui-qt</string>
+   <string>pyt-dlp-gui</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">

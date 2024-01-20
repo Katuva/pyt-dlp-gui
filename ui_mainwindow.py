@@ -248,7 +248,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"yt-dlp-gui-qt", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"pyt-dlp-gui", None))
         self.actionExit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.actionOptions.setText(QCoreApplication.translate("MainWindow", u"Options", None))
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
